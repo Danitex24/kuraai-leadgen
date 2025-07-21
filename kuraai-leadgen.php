@@ -34,15 +34,32 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 
 // Autoloader for plugin classes
 spl_autoload_register(function ($class_name) {
-    if (strpos($class_name, 'KuraAI_LeadGen\\') === 0) {
-        $class_file = str_replace('KuraAI_LeadGen\\', '', $class_name);
-        $class_file = str_replace('_', '-', $class_file);
-        $class_file = strtolower($class_file);
-        $file_path = KURAAI_LEADGEN_PLUGIN_DIR . 'includes/class-' . $class_file . '.php';
+    // Project-specific namespace prefix
+    $prefix = 'KuraAI_LeadGen\\';
 
-        if (file_exists($file_path)) {
-            require_once $file_path;
-        }
+    // Does the class use the namespace prefix?
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class_name, $len) !== 0) {
+        // No, move to the next registered autoloader
+        return;
+    }
+
+    // Get the relative class name
+    $relative_class = substr($class_name, $len);
+
+    // Replace the namespace prefix with the base directory
+    // Replace namespace separators with directory separators
+    $path = str_replace('\\', '/', $relative_class);
+
+    // Convert class names to file naming convention
+    $path = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $path));
+
+    // Build the full path to the class file
+    $file = KURAAI_LEADGEN_PLUGIN_DIR . 'includes/class-' . $path . '.php';
+
+    // If the file exists, require it
+    if (file_exists($file)) {
+        require $file;
     }
 });
 
