@@ -8,8 +8,8 @@ Requires at least: 5.6
 Tested up to: 6.3
 Requires PHP: 7.4
 Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+License URI: https://www.gnu.org/licenses
 
 AI-powered WooCommerce audits and sales improvement suggestions.
 
