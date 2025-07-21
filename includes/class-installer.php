@@ -43,7 +43,7 @@ class Installer
             KEY audit_type (audit_type)
         ) $charset_collate;";
 
-        $sql .= "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}kuraai_leadgen_activity (
+        $sql .= "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}kuraai_leadgen_product_activity (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             product_id bigint(20) NOT NULL,
             activity_type varchar(50) NOT NULL,
@@ -54,7 +54,23 @@ class Installer
             KEY activity_type (activity_type)
         ) $charset_collate;";
 
+        $sql .= "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}kuraai_leadgen_activity (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            object_type varchar(50) NOT NULL,
+            object_id bigint(20) NOT NULL,
+            activity_type varchar(50) NOT NULL,
+            activity_data longtext NOT NULL,
+            created_at datetime NOT NULL,
+            PRIMARY KEY (id),
+            KEY object_type (object_type),
+            KEY object_id (object_id),
+            KEY activity_type (activity_type)
+        ) $charset_collate;";
+
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql);
+
+        // Add version option to support future updates
+        add_option('kuraai_leadgen_db_version', '1.0.0');
     }
 }
