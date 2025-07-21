@@ -1,0 +1,43 @@
+.kuraai-settings-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.kuraai-settings-main {
+    flex: 3;
+}
+
+.kuraai-settings-sidebar {
+    flex: 1;
+}
+
+.kuraai-pro-promo {
+    background: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.kuraai-pro-promo h3 {
+    margin-top: 0;
+    color: #2271b1;
+}
+
+.kuraai-pro-promo ul {
+    padding-left: 20px;
+}
+
+.kuraai-pro-promo li {
+    margin-bottom: 8px;
+}
+
+.webhook-url-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.webhook-url-container input {
+    flex: 1;
+}
