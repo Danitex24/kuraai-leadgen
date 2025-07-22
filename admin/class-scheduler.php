@@ -20,7 +20,7 @@ class Scheduler
             'kuraai_leadgen_schedule_section',
             __('Scheduled Checkups', 'kuraai-leadgen'),
             [$this, 'render_schedule_section'],
-            'kuraai-leadgen',
+            'kuraai-leadgen'
         );
 
         add_settings_field(
@@ -28,7 +28,7 @@ class Scheduler
             __('Checkup Frequency', 'kuraai-leadgen'),
             [$this, 'render_frequency_field'],
             'kuraai-leadgen',
-            'kuraai_leadgen_schedule_section',
+            'kuraai_leadgen_schedule_section'
         );
 
         add_settings_field(
@@ -36,7 +36,7 @@ class Scheduler
             __('Email Reports', 'kuraai-leadgen'),
             [$this, 'render_email_reports_field'],
             'kuraai-leadgen',
-            'kuraai_leadgen_schedule_section',
+            'kuraai_leadgen_schedule_section'
         );
     }
 
@@ -88,7 +88,7 @@ class Scheduler
 
     public function run_scheduled_checkup()
     {
-        if (!class_exists('KuraAI_LeadGen\AI_Auditor')) {
+        if (!class_exists('KuraAI_LeadGen\Admin\AI_Auditor')) {
             return;
         }
 
@@ -99,7 +99,7 @@ class Scheduler
             return;
         }
 
-        $auditor = new \KuraAI_LeadGen\AI_Auditor();
+        $auditor = new \KuraAI_LeadGen\Admin\AI_Auditor();
         $store_data = $auditor->get_store_data();
         $prompt = $auditor->get_audit_prompt($store_data);
 

@@ -46,34 +46,24 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 
 // Autoloader for plugin classes
 spl_autoload_register(function ($class_name) {
-    // Project-specific namespace prefix
     $prefix = 'KuraAI_LeadGen\\';
 
-    // Does the class use the namespace prefix?
-    $len = strlen($prefix);
-    if (strncmp($prefix, $class_name, $len) !== 0) {
+    if (strncmp($prefix, $class_name, strlen($prefix)) !== 0) {
         return;
     }
 
-    // Get the relative class name
-    $relative_class = substr($class_name, $len);
+    $relative_class = substr($class_name, strlen($prefix));
+    $parts = explode('\\', $relative_class);
+    $base_dir = KURAAI_LEADGEN_PLUGIN_DIR;
 
-    // Replace namespace separators with directory separators
-    $path = str_replace('\\', '/', $relative_class);
-
-    // Convert class names to file naming convention
-    $path = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $path));
-
-    // Build the full path to the class file
-    $file = KURAAI_LEADGEN_PLUGIN_DIR . 'includes/class-' . $path . '.php';
-
-    // Check for admin classes in admin directory
-    if (strpos($relative_class, 'Admin\\') === 0) {
-        $admin_path = str_replace('Admin/', '', $path);
-        $file = KURAAI_LEADGEN_PLUGIN_DIR . 'admin/class-' . $admin_path . '.php';
+    if ($parts[0] === 'Admin') {
+        $filename = 'class-' . strtolower(implode('-', array_slice($parts, 1))) . '.php';
+        $file = $base_dir . 'admin/' . $filename;
+    } else {
+        $filename = 'class-' . strtolower(implode('-', $parts)) . '.php';
+        $file = $base_dir . 'includes/' . $filename;
     }
 
-    // If the file exists, require it
     if (file_exists($file)) {
         require $file;
     } else {

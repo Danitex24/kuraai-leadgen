@@ -17,7 +17,7 @@ class Admin_Menu
             __('KuraAI Lead Gen', 'kuraai-leadgen'),
             'manage_woocommerce',
             'kuraai-leadgen',
-            [$this, 'render_settings_page'],
+            [$this, 'render_settings_page']
         );
     }
 
@@ -29,7 +29,7 @@ class Admin_Menu
             'kuraai_leadgen_api_section',
             __('API Settings', 'kuraai-leadgen'),
             [$this, 'render_api_section'],
-            'kuraai-leadgen',
+            'kuraai-leadgen'
         );
 
         add_settings_field(
@@ -37,7 +37,7 @@ class Admin_Menu
             __('OpenAI API Key', 'kuraai-leadgen'),
             [$this, 'render_openai_api_key_field'],
             'kuraai-leadgen',
-            'kuraai_leadgen_api_section',
+            'kuraai_leadgen_api_section'
         );
 
         add_settings_field(
@@ -45,7 +45,7 @@ class Admin_Menu
             __('Google Gemini API Key', 'kuraai-leadgen'),
             [$this, 'render_gemini_api_key_field'],
             'kuraai-leadgen',
-            'kuraai_leadgen_api_section',
+            'kuraai_leadgen_api_section'
         );
 
         add_settings_field(
@@ -53,7 +53,7 @@ class Admin_Menu
             __('Enable Product Activity Tracking', 'kuraai-leadgen'),
             [$this, 'render_enable_tracking_field'],
             'kuraai-leadgen',
-            'kuraai_leadgen_api_section',
+            'kuraai_leadgen_api_section'
         );
     }
 
@@ -94,9 +94,9 @@ class Admin_Menu
     public function render_enable_tracking_field()
     {
         $settings = get_option('kuraai_leadgen_settings');
-        $checked = isset($settings['enable_tracking']) && $settings['enable_tracking'] === 'yes' ? 'checked' : '';
         ?>
-        <input type="checkbox" name="kuraai_leadgen_settings[enable_tracking]" value="yes" <?php echo $checked; ?>>
+        <input type="checkbox" name="kuraai_leadgen_settings[enable_tracking]" value="yes"
+            <?php checked(isset($settings['enable_tracking']) && $settings['enable_tracking'] === 'yes'); ?>>
         <span
             class="description"><?php esc_html_e('Track product views and cart additions for future Pro features.', 'kuraai-leadgen'); ?></span>
         <?php
