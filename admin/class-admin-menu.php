@@ -11,11 +11,21 @@ class Admin_Menu
 
     public function add_admin_menu()
     {
+        add_menu_page(
+            __('KuraAI Lead Gen', 'kuraai-leadgen'),
+            __('KuraAI Lead Gen', 'kuraai-leadgen'),
+            'manage_options',
+            'kuraai-leadgen',
+            [$this, 'render_settings_page'],
+            'dashicons-admin-generic',
+            56
+        );
+
         add_submenu_page(
-            'woocommerce',
-            __('KuraAI Lead Gen', 'kuraai-leadgen'),
-            __('KuraAI Lead Gen', 'kuraai-leadgen'),
-            'manage_woocommerce',
+            'kuraai-leadgen',
+            __('Settings', 'kuraai-leadgen'),
+            __('Settings', 'kuraai-leadgen'),
+            'manage_options',
             'kuraai-leadgen',
             [$this, 'render_settings_page']
         );
