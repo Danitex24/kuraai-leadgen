@@ -57,10 +57,10 @@ spl_autoload_register(function ($class_name) {
     $base_dir = KURAAI_LEADGEN_PLUGIN_DIR;
 
     if ($parts[0] === 'Admin') {
-        $filename = 'class-' . strtolower(implode('-', array_slice($parts, 1))) . '.php';
+        $filename = 'class-' . str_replace('_', '-', strtolower(implode('-', array_slice($parts, 1)))) . '.php';
         $file = $base_dir . 'admin/' . $filename;
     } else {
-        $filename = 'class-' . strtolower(implode('-', $parts)) . '.php';
+        $filename = 'class-' . str_replace('_', '-', strtolower(implode('-', $parts))) . '.php';
         $file = $base_dir . 'includes/' . $filename;
     }
 
