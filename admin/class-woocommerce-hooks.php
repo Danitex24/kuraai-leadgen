@@ -12,17 +12,17 @@ class WooCommerce_Hooks
 
     public function log_new_order($order_id)
     {
-        // Placeholder for logging new order data
+        error_log('New order created: ' . $order_id);
     }
 
     public function log_new_product($product_id)
     {
-        // Placeholder for logging new product data
+        error_log('New product created: ' . $product_id);
     }
 
     public function log_completed_order($order_id)
     {
-        // Placeholder for logging completed order data
+        error_log('Order completed: ' . $order_id);
     }
 
     public function render_page()
