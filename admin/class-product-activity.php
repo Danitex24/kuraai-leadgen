@@ -1,15 +1,30 @@
 <?php
+/**
+ * Class Product_Activity
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+
 namespace KuraAI_LeadGen\Admin;
 
-class Product_Activity
-{
-    public function __construct()
-    {
+/**
+ * Class Product_Activity
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+class Product_Activity {
+
+    /**
+     * Product_Activity constructor.
+     */
+    public function __construct() {
         add_action('admin_init', [$this, 'register_settings']);
     }
 
-    public function register_settings()
-    {
+    /**
+     * Register the product activity settings.
+     */
+    public function register_settings() {
         register_setting('kuraai_leadgen_product_activity_settings', 'kuraai_leadgen_product_activity_settings');
 
         add_settings_section(
@@ -28,8 +43,10 @@ class Product_Activity
         );
     }
 
-    public function render_page()
-    {
+    /**
+     * Render the Product Activity Tracking page.
+     */
+    public function render_page() {
         ?>
         <div class="wrap">
             <h1><?php esc_html_e('Product Activity Tracking', 'kuraai-leadgen'); ?></h1>
@@ -44,8 +61,10 @@ class Product_Activity
         <?php
     }
 
-    public function render_enable_tracking_field()
-    {
+    /**
+     * Render the enable tracking field.
+     */
+    public function render_enable_tracking_field() {
         $options = get_option('kuraai_leadgen_product_activity_settings');
         ?>
         <input type="checkbox" name="kuraai_leadgen_product_activity_settings[enable_tracking]" value="1" <?php checked($options['enable_tracking'], 1); ?>>

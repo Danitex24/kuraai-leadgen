@@ -1,16 +1,31 @@
 <?php
+/**
+ * Class Admin_Menu
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+
 namespace KuraAI_LeadGen\Admin;
 
-class Admin_Menu
-{
-    public function __construct()
-    {
+/**
+ * Class Admin_Menu
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+class Admin_Menu {
+
+    /**
+     * Admin_Menu constructor.
+     */
+    public function __construct() {
         add_action('admin_menu', [$this, 'add_admin_menu']);
         add_action('admin_init', [$this, 'register_settings']);
     }
 
-    public function add_admin_menu()
-    {
+    /**
+     * Add the admin menu and submenus.
+     */
+    public function add_admin_menu() {
         add_menu_page(
             __('KuraAI Lead Gen', 'kuraai-leadgen'),
             __('KuraAI Lead Gen', 'kuraai-leadgen'),
@@ -76,8 +91,10 @@ class Admin_Menu
         );
     }
 
-    public function register_settings()
-    {
+    /**
+     * Register the plugin settings.
+     */
+    public function register_settings() {
         register_setting('kuraai_leadgen_settings', 'kuraai_leadgen_settings');
 
         add_settings_section(
@@ -112,20 +129,26 @@ class Admin_Menu
         );
     }
 
-    public function render_settings_page()
-    {
+    /**
+     * Render the settings page.
+     */
+    public function render_settings_page() {
         require_once KURAAI_LEADGEN_PLUGIN_DIR . 'admin/views/settings-page.php';
     }
 
-    public function render_api_section()
-    {
+    /**
+     * Render the API settings section.
+     */
+    public function render_api_section() {
         echo '<p>' . esc_html__('Configure your AI API settings below.', 'kuraai-leadgen') . '</p>';
     }
 
-    public function render_openai_api_key_field()
-    {
+    /**
+     * Render the OpenAI API key field.
+     */
+    public function render_openai_api_key_field() {
         $settings = get_option('kuraai_leadgen_settings');
-        $value = isset($settings['openai_api_key']) ? $settings['openai_api_key'] : '';
+        $value    = isset($settings['openai_api_key']) ? $settings['openai_api_key'] : '';
         ?>
         <input type="password" name="kuraai_leadgen_settings[openai_api_key]" value="<?php echo esc_attr($value); ?>"
             class="regular-text">
@@ -134,10 +157,12 @@ class Admin_Menu
         <?php
     }
 
-    public function render_gemini_api_key_field()
-    {
+    /**
+     * Render the Google Gemini API key field.
+     */
+    public function render_gemini_api_key_field() {
         $settings = get_option('kuraai_leadgen_settings');
-        $value = isset($settings['gemini_api_key']) ? $settings['gemini_api_key'] : '';
+        $value    = isset($settings['gemini_api_key']) ? $settings['gemini_api_key'] : '';
         ?>
         <input type="password" name="kuraai_leadgen_settings[gemini_api_key]" value="<?php echo esc_attr($value); ?>"
             class="regular-text">
@@ -146,8 +171,10 @@ class Admin_Menu
         <?php
     }
 
-    public function render_enable_tracking_field()
-    {
+    /**
+     * Render the enable tracking field.
+     */
+    public function render_enable_tracking_field() {
         $settings = get_option('kuraai_leadgen_settings');
         ?>
         <input type="checkbox" name="kuraai_leadgen_settings[enable_tracking]" value="yes"
