@@ -12,6 +12,11 @@ class AI_Audit
     {
         check_ajax_referer('kuraai_leadgen_ai_audit_nonce', 'nonce');
 
+        $settings = get_option('kuraai_leadgen_settings');
+        if (empty($settings['openai_api_key']) && empty($settings['gemini_api_key'])) {
+            wp_send_json_error(__('Please set your OpenAI or Gemini API key in the settings.', 'kuraai-leadgen'));
+        }
+
         // This is a placeholder for the actual logic to fetch WooCommerce data
         // and interact with an AI API.
         $suggestions = [
