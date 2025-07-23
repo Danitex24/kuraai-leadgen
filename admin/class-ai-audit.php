@@ -1,15 +1,30 @@
 <?php
+/**
+ * Class AI_Audit
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+
 namespace KuraAI_LeadGen\Admin;
 
-class AI_Audit
-{
-    public function __construct()
-    {
+/**
+ * Class AI_Audit
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+class AI_Audit {
+
+    /**
+     * AI_Audit constructor.
+     */
+    public function __construct() {
         add_action('wp_ajax_kuraai_leadgen_fetch_woocommerce_data', [$this, 'fetch_woocommerce_data']);
     }
 
-    public function fetch_woocommerce_data()
-    {
+    /**
+     * Fetch WooCommerce data and generate AI suggestions.
+     */
+    public function fetch_woocommerce_data() {
         check_ajax_referer('kuraai_leadgen_ai_audit_nonce', 'nonce');
 
         $settings = get_option('kuraai_leadgen_settings');
@@ -35,8 +50,10 @@ class AI_Audit
         wp_send_json_success($suggestions);
     }
 
-    public function render_page()
-    {
+    /**
+     * Render the AI-Powered Website Audit page.
+     */
+    public function render_page() {
         ?>
         <div class="wrap">
             <h1><?php esc_html_e('AI-Powered Website Audit', 'kuraai-leadgen'); ?></h1>

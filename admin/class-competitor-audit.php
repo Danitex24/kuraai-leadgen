@@ -1,15 +1,30 @@
 <?php
+/**
+ * Class Competitor_Audit
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+
 namespace KuraAI_LeadGen\Admin;
 
-class Competitor_Audit
-{
-    public function __construct()
-    {
+/**
+ * Class Competitor_Audit
+ *
+ * @package KuraAI_LeadGen\Admin
+ */
+class Competitor_Audit {
+
+    /**
+     * Competitor_Audit constructor.
+     */
+    public function __construct() {
         add_action('wp_ajax_kuraai_leadgen_audit_competitor', [$this, 'audit_competitor']);
     }
 
-    public function audit_competitor()
-    {
+    /**
+     * Audit a competitor and return AI-powered suggestions.
+     */
+    public function audit_competitor() {
         check_ajax_referer('kuraai_leadgen_competitor_audit_nonce', 'nonce');
 
         $settings = get_option('kuraai_leadgen_settings');
@@ -28,8 +43,10 @@ class Competitor_Audit
         wp_send_json_success($results);
     }
 
-    public function render_page()
-    {
+    /**
+     * Render the Competitor Audit Tool page.
+     */
+    public function render_page() {
         ?>
         <div class="wrap">
             <h1><?php esc_html_e('Competitor Audit Tool', 'kuraai-leadgen'); ?></h1>

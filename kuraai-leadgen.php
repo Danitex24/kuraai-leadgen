@@ -1,30 +1,32 @@
 <?php
 /**
  * Plugin Name: KuraAI Lead Gen
- * Plugin URI: https://kuraai-lead-gen.danovatesolutions.org
+ * Plugin URI:  https://kuraai-lead-gen.danovatesolutions.org
  * Description: AI-powered WooCommerce audits and sales improvement suggestions.
- * Version: 1.0.1
- * Author: Daniel Abughdyer
- * Author URI: https://kuraai-lead-gen.danovatesolutions.org
- * License: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ * Version:     1.0.1
+ * Author:      Daniel Abughdyer
+ * Author URI:  https://kuraai-lead-gen.danovatesolutions.org
+ * License:     GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * License URI: https://www.gnu.org/licenses
  * Text Domain: kuraai-leadgen
  * Domain Path: /languages
  * WC requires at least: 5.0.0
  * WC tested up to: 8.0.0
  * Requires PHP: 7.4
+ *
+ * @package KuraAI_LeadGen
  */
 
 defined('ABSPATH') || exit;
 
-// Define plugin constants
+// Define plugin constants.
 define('KURAAI_LEADGEN_VERSION', '1.0.1');
 define('KURAAI_LEADGEN_PLUGIN_FILE', __FILE__);
 define('KURAAI_LEADGEN_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('KURAAI_LEADGEN_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('KURAAI_LEADGEN_NONCE', 'kuraai_leadgen_nonce_' . md5(__FILE__));
 
-// Check PHP version
+// Check PHP version.
 if (version_compare(PHP_VERSION, '7.4', '<')) {
     add_action('admin_notices', function () {
         echo '<div class="notice notice-error"><p>';
@@ -34,7 +36,7 @@ if (version_compare(PHP_VERSION, '7.4', '<')) {
     return;
 }
 
-// Check if WooCommerce is active
+// Check if WooCommerce is active.
 if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
     add_action('admin_notices', function () {
         echo '<div class="notice notice-error"><p>';
@@ -44,7 +46,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
     return;
 }
 
-// Autoloader for plugin classes
+// Autoloader for plugin classes.
 spl_autoload_register(function ($class_name) {
     $prefix = 'KuraAI_LeadGen\\';
 
@@ -53,15 +55,15 @@ spl_autoload_register(function ($class_name) {
     }
 
     $relative_class = substr($class_name, strlen($prefix));
-    $parts = explode('\\', $relative_class);
-    $base_dir = KURAAI_LEADGEN_PLUGIN_DIR;
+    $parts          = explode('\\', $relative_class);
+    $base_dir       = KURAAI_LEADGEN_PLUGIN_DIR;
 
     if ($parts[0] === 'Admin') {
         $filename = 'class-' . str_replace('_', '-', strtolower(implode('-', array_slice($parts, 1)))) . '.php';
-        $file = $base_dir . 'admin/' . $filename;
+        $file     = $base_dir . 'admin/' . $filename;
     } else {
         $filename = 'class-' . str_replace('_', '-', strtolower(implode('-', $parts))) . '.php';
-        $file = $base_dir . 'includes/' . $filename;
+        $file     = $base_dir . 'includes/' . $filename;
     }
 
     if (file_exists($file)) {
@@ -71,20 +73,20 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-// Add settings link to plugins page
+// Add settings link to plugins page.
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($links) {
     $settings_link = '<a href="' . admin_url('admin.php?page=kuraai-leadgen') . '">' . __('Settings', 'kuraai-leadgen') . '</a>';
-    $docs_link = '<a href="https://kuraai-lead-gen.danovatesolutions.org/docs" target="_blank">' . __('Docs', 'kuraai-leadgen') . '</a>';
+    $docs_link     = '<a href="https://kuraai-lead-gen.danovatesolutions.org/docs" target="_blank">' . __('Docs', 'kuraai-leadgen') . '</a>';
     array_unshift($links, $settings_link, $docs_link);
     return $links;
 });
 
-// Initialize the plugin
+// Initialize the plugin.
 add_action('plugins_loaded', function () {
-    // Load text domain
+    // Load text domain.
     load_plugin_textdomain('kuraai-leadgen', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
-    // Initialize main components
+    // Initialize main components.
     if (is_admin() && !wp_doing_ajax()) {
         new KuraAI_LeadGen\Admin\Admin_Menu();
         new KuraAI_LeadGen\Admin\Scheduler();
@@ -94,8 +96,8 @@ add_action('plugins_loaded', function () {
     new KuraAI_LeadGen\Webhook_Handler();
     new KuraAI_LeadGen\Logger();
     new KuraAI_LeadGen\Hooks();
-}, 20); // Priority 20 to ensure WooCommerce is loaded
+}, 20); // Priority 20 to ensure WooCommerce is loaded.
 
-// Register activation and deactivation hooks
+// Register activation and deactivation hooks.
 register_activation_hook(__FILE__, ['KuraAI_LeadGen\Installer', 'activate']);
 register_deactivation_hook(__FILE__, ['KuraAI_LeadGen\Installer', 'deactivate']);
