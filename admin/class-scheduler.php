@@ -123,9 +123,7 @@ class Scheduler
         }
 
         $settings = get_option('kuraai_leadgen_settings');
-        $api_key = $settings['openai_api_key'] ?? ($settings['gemini_api_key'] ?? '');
-
-        if (empty($api_key)) {
+        if (empty($settings['openai_api_key']) && empty($settings['gemini_api_key'])) {
             return;
         }
 

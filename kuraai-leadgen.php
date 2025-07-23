@@ -84,17 +84,6 @@ add_action('plugins_loaded', function () {
     // Load text domain
     load_plugin_textdomain('kuraai-leadgen', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
-    // Check for API keys
-    $settings = get_option('kuraai_leadgen_settings');
-    if (empty($settings['openai_api_key']) && empty($settings['gemini_api_key'])) {
-        add_action('admin_notices', function () {
-            echo '<div class="notice notice-error"><p>';
-            echo esc_html__('KuraAI Lead Gen requires an OpenAI or Google Gemini API key to be set. Please go to the settings page to add your API key.', 'kuraai-leadgen');
-            echo '</p></div>';
-        });
-        return;
-    }
-
     // Initialize main components
     if (is_admin() && !wp_doing_ajax()) {
         new KuraAI_LeadGen\Admin\Admin_Menu();
