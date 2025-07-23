@@ -29,6 +29,51 @@ class Admin_Menu
             'kuraai-leadgen',
             [$this, 'render_settings_page']
         );
+
+        add_submenu_page(
+            'kuraai-leadgen',
+            __('AI-Powered Website Audit', 'kuraai-leadgen'),
+            __('AI-Powered Website Audit', 'kuraai-leadgen'),
+            'manage_options',
+            'kuraai-leadgen-ai-audit',
+            [new AI_Audit(), 'render_page']
+        );
+
+        add_submenu_page(
+            'kuraai-leadgen',
+            __('Scheduled WooCommerce Checkups', 'kuraai-leadgen'),
+            __('Scheduled WooCommerce Checkups', 'kuraai-leadgen'),
+            'manage_options',
+            'kuraai-leadgen-scheduler',
+            [new Scheduler(), 'render_page']
+        );
+
+        add_submenu_page(
+            'kuraai-leadgen',
+            __('Competitor Audit Tool', 'kuraai-leadgen'),
+            __('Competitor Audit Tool', 'kuraai-leadgen'),
+            'manage_options',
+            'kuraai-leadgen-competitor-audit',
+            [new Competitor_Audit(), 'render_page']
+        );
+
+        add_submenu_page(
+            'kuraai-leadgen',
+            __('Product Activity Tracking', 'kuraai-leadgen'),
+            __('Product Activity Tracking', 'kuraai-leadgen'),
+            'manage_options',
+            'kuraai-leadgen-product-activity',
+            [new Product_Activity(), 'render_page']
+        );
+
+        add_submenu_page(
+            'kuraai-leadgen',
+            __('WooCommerce Hook Integration', 'kuraai-leadgen'),
+            __('WooCommerce Hook Integration', 'kuraai-leadgen'),
+            'manage_options',
+            'kuraai-leadgen-woocommerce-hooks',
+            [new WooCommerce_Hooks(), 'render_page']
+        );
     }
 
     public function register_settings()

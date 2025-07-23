@@ -12,6 +12,36 @@ class Scheduler
         add_action('admin_init', [$this, 'register_schedule_settings']);
     }
 
+    public function render_page()
+    {
+        ?>
+        <div class="wrap">
+            <h1><?php esc_html_e('Scheduled WooCommerce Checkups', 'kuraai-leadgen'); ?></h1>
+            <form method="post" action="options.php">
+                <?php
+                settings_fields('kuraai_leadgen_settings');
+                do_settings_sections('kuraai-leadgen');
+                submit_button();
+                ?>
+            </form>
+            <h2><?php esc_html_e('Next Scheduled Run', 'kuraai-leadgen'); ?></h2>
+            <p>
+                <?php
+                if (wp_next_scheduled('kuraai_leadgen_daily_checkup')) {
+                    echo esc_html(get_date_from_gmt(date('Y-m-d H:i:s', wp_next_scheduled('kuraai_leadgen_daily_checkup')), 'F j, Y g:i a'));
+                } elseif (wp_next_scheduled('kuraai_leadgen_weekly_checkup')) {
+                    echo esc_html(get_date_from_gmt(date('Y-m-d H:i:s', wp_next_scheduled('kuraai_leadgen_weekly_checkup')), 'F j, Y g:i a'));
+                } else {
+                    esc_html_e('Not scheduled.', 'kuraai-leadgen');
+                }
+                ?>
+            </p>
+            <h2><?php esc_html_e('Past Logs', 'kuraai-leadgen'); ?></h2>
+            <p><?php esc_html_e('Past logs will be displayed here.', 'kuraai-leadgen'); ?></p>
+        </div>
+        <?php
+    }
+
     public function register_schedule_settings()
     {
         register_setting('kuraai_leadgen_settings', 'kuraai_leadgen_schedule');
