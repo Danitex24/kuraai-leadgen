@@ -114,7 +114,7 @@ class Admin_Menu
 
     public function render_settings_page()
     {
-        require_once dirname(__FILE__) . '/views/settings-page.php';
+        require_once KURAAI_LEADGEN_PLUGIN_DIR . 'admin/views/settings-page.php';
     }
 
     public function render_api_section()
