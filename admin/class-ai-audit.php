@@ -39,12 +39,8 @@ class AI_Audit
                 <?php wp_nonce_field('kuraai_leadgen_ai_audit_nonce', 'kuraai_leadgen_nonce'); ?>
                 <table class="form-table">
                     <tr valign="top">
-                        <th scope="row"><?php esc_html_e('OpenAI API Key', 'kuraai-leadgen'); ?></th>
-                        <td><input type="text" name="openai_api_key" value="<?php echo esc_attr(get_option('kuraai_leadgen_settings')['openai_api_key']); ?>" class="regular-text"></td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php esc_html_e('Gemini API Key', 'kuraai-leadgen'); ?></th>
-                        <td><input type="text" name="gemini_api_key" value="<?php echo esc_attr(get_option('kuraai_leadgen_settings')['gemini_api_key']); ?>" class="regular-text"></td>
+                        <th scope="row"><?php esc_html_e('Business Description', 'kuraai-leadgen'); ?></th>
+                        <td><textarea name="business_description" rows="5" cols="50" class="large-text"></textarea></td>
                     </tr>
                 </table>
                 <p class="submit">
@@ -72,8 +68,7 @@ class AI_Audit
                         data: {
                             action: 'kuraai_leadgen_fetch_woocommerce_data',
                             nonce: form.find('#kuraai_leadgen_nonce').val(),
-                            openai_api_key: form.find('input[name="openai_api_key"]').val(),
-                            gemini_api_key: form.find('input[name="gemini_api_key"]').val()
+                            business_description: form.find('textarea[name="business_description"]').val()
                         },
                         beforeSend: function() {
                             button.prop('disabled', true);
